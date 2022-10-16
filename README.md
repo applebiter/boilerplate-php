@@ -25,3 +25,14 @@ is tested, but I don't write tests to prove to others I have tested it. If
 that's a problem, it's all good. You can either move along or write the tests.
 It is open source, after all. At some arbitrary point I will consider it to be
 a v1.0 release and probably only ever return to it if I absolutely have to.
+
+## Features
+
+* Optional user self-registration process
+* Bootstrap and jQuery with a selection of CSS themes provided by [Bootswatch] (https://bootswatch.com/). Users may select their own, preferred CSS theme 
+and timezone bias.
+* Users may register SMS-capable devices for notifications and/or 2-factor 
+authentication. Sensitive device data is stored in encrypted format.
+* Uses libsodium for enterprise-grade cryptographic needs, such as password-
+hashing, symmetric and asymmetric encryption, and encryption of files.
+* Real-time chat using event stream
