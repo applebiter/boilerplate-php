@@ -36,3 +36,21 @@ authentication. Sensitive device data is stored in encrypted format.
 * Uses libsodium for enterprise-grade cryptographic needs, such as password-
 hashing, symmetric and asymmetric encryption, and encryption of files.
 * Real-time chat using event stream
+
+## Qt Interoperability
+
+So, the programming iceberg is what it is, and it really doesn't matter which 
+particular language or stack you came from, in the end you need a web
+application AND a custom desktop application that are securely interoperable
+to deliver any enterprise-grade product. Doing all of that is pretty easy if 
+you are a professional and have a mentor. In that case, you've probably also
+signed a legally-binding non-disclosure and/or a non-compete waiver. 
+
+If you are a self-taught programmer like me, you can waste a lot of time and 
+experience a lot of unnecessary discuragement just figuring all of this out.
+So it doesn't even matter if my own, pet project never pans out so long as 
+this here labor of love exists. Someone will come along with a really cool idea and will be able to rough it in using this boilerplate code. And let's just keep it real. If you can develop a product that builds a userbase of a thousand people or more, you will have a desirable product to sell, and if a large corporation buys your product and user base they are going to retool it
+all using in-house tech, anyway. Ba-DUM-tish. That's how it really works, 
+apparently. So your mission is to be first, and to do it with a minimum of 
+legal exposure. Hence my use of first-class encryption and a standards-
+embracing framework like CakePHP.
