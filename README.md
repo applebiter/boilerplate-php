@@ -49,8 +49,4 @@ signed a legally-binding non-disclosure and/or a non-compete waiver.
 
 If you are a self-taught programmer like me, you can waste a lot of time and 
 experience a lot of unnecessary discuragement just figuring all of this out.
-And let's just keep it real. If you can develop a product that builds a userbase of a thousand people or more, you will have a desirable product to sell, and if a large corporation buys your product and user base they are going to retool it
-all using in-house tech, anyway. Ba-DUM-tish. That's how it really works, 
-apparently. So your mission is to be first, and to do it with a minimum of 
-legal exposure. Hence my use of first-class encryption and a standards-
-embracing framework like CakePHP. 
+And let's just keep it real. If you can develop a product that builds a userbase of a thousand people or more, you will have a desirable product to sell, and if a large corporation buys your product and user base they are going to retool it all using in-house tech, anyway. Ba-DUM-tish. That's how it really works, apparently. So your mission is to be first, and to do it with a minimum of legal exposure. Hence my use of first-class encryption and a standards-embracing framework like CakePHP. 
