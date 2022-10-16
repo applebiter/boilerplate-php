@@ -20,11 +20,7 @@ management built in, as well.
 ## Evolving, Never Finished
 
 At this time, it's really not finished at all, but it soon will be at a place
-where the code is all useful and coherent. I don't write tests. Oh, everything
-is tested, but I don't write tests to prove to others I have tested it. If
-that's a problem, it's all good. You can either move along or write the tests.
-It is open source, after all. At some arbitrary point I will consider it to be
-a v1.0 release and probably only ever return to it if I absolutely have to.
+where the code is all useful and coherent. At some arbitrary point I will consider it to be a v1.0 release and probably only ever return to it if I absolutely have to.
 
 ## Features
 
@@ -37,16 +33,3 @@ authentication. Sensitive device data is stored in encrypted format.
 hashing, symmetric and asymmetric encryption, and encryption of files.
 * Real-time chat using event stream
 * Role-based permission sets for all endpoints, entities, and tables. The roles and resources are all stored in the db and so are customizable and extensible for your own code.
-
-## Qt Interoperability
-
-So, the programming iceberg is what it is, and it really doesn't matter which 
-particular language or stack you came from, in the end you need a web
-application AND a custom desktop application that are securely interoperable
-to deliver any enterprise-grade product. Doing all of that is pretty easy if 
-you are a professional and have a mentor. In that case, you've probably also
-signed a legally-binding non-disclosure and/or a non-compete waiver. 
-
-If you are a self-taught programmer like me, you can waste a lot of time and 
-experience a lot of unnecessary discuragement just figuring all of this out.
-And let's just keep it real. If you can develop a product that builds a userbase of a thousand people or more, you will have a desirable product to sell, and if a large corporation buys your product and user base they are going to retool it all using in-house tech, anyway. Ba-DUM-tish. That's how it really works, apparently. So your mission is to be first, and to do it with a minimum of legal exposure. Hence my use of first-class encryption and a standards-embracing framework like CakePHP. 
