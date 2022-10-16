@@ -36,6 +36,7 @@ authentication. Sensitive device data is stored in encrypted format.
 * Uses libsodium for enterprise-grade cryptographic needs, such as password-
 hashing, symmetric and asymmetric encryption, and encryption of files.
 * Real-time chat using event stream
+* Role-based permission sets for all endpoints, entities, and tables. The roles and resources are all stored in the db and so are customizable and extensible for your own code.
 
 ## Qt Interoperability
 
