@@ -1,53 +1,27 @@
-# CakePHP Application Skeleton
+# Boilerplate-PHP
 
-![Build Status](https://github.com/cakephp/app/actions/workflows/ci.yml/badge.svg?branch=master)
-[![Total Downloads](https://img.shields.io/packagist/dt/cakephp/app.svg?style=flat-square)](https://packagist.org/packages/cakephp/app)
-[![PHPStan](https://img.shields.io/badge/PHPStan-level%207-brightgreen.svg?style=flat-square)](https://github.com/phpstan/phpstan)
+It's a CakePHP 4 skeleton application with a custom authentication and 
+authorization scheme using a relational database backend. It is designed
+to be interoperable with a boilerplate Qt (C++) desktop application, which
+is another of my repos, applebiter/boilerplate-qt.
 
-A skeleton for creating applications with [CakePHP](https://cakephp.org) 4.x.
+## Standards and Convention
 
-The framework source code can be found here: [cakephp/cakephp](https://github.com/cakephp/cakephp).
+CakePHP asks that developers adhere to convention. The more the developer
+adheres to the CakePHP way of doing things, the more utility CakePHP can
+deliver. Well, it's really only useful up to a point, anyway. What we want
+is secure code that does all of the generic, boring stuff so that when we
+code we may focus on the interesting, domain-specific programming that our
+particular project needs. I think my authentication and authorization
+solutions are more powerful and flexible than the native CakePHP solutions,
+and it's naive to imagine that we won't need user management and file
+management built in, as well.
 
-## Installation
+## Evolving, Never Finished
 
-1. Download [Composer](https://getcomposer.org/doc/00-intro.md) or update `composer self-update`.
-2. Run `php composer.phar create-project --prefer-dist cakephp/app [app_name]`.
-
-If Composer is installed globally, run
-
-```bash
-composer create-project --prefer-dist cakephp/app
-```
-
-In case you want to use a custom app dir name (e.g. `/myapp/`):
-
-```bash
-composer create-project --prefer-dist cakephp/app myapp
-```
-
-You can now either use your machine's webserver to view the default home page, or start
-up the built-in webserver with:
-
-```bash
-bin/cake server -p 8765
-```
-
-Then visit `http://localhost:8765` to see the welcome page.
-
-## Update
-
-Since this skeleton is a starting point for your application and various files
-would have been modified as per your needs, there isn't a way to provide
-automated upgrades, so you have to do any updates manually.
-
-## Configuration
-
-Read and edit the environment specific `config/app_local.php` and setup the 
-`'Datasources'` and any other configuration relevant for your application.
-Other environment agnostic settings can be changed in `config/app.php`.
-
-## Layout
-
-The app skeleton uses [Milligram](https://milligram.io/) (v1.3) minimalist CSS
-framework by default. You can, however, replace it with any other library or
-custom styles.
+At this time, it's really not finished at all, but it soon will be at a place
+where the code is all useful and coherent. I don't write tests. Oh, everything
+is tested, but I don't write tests to prove to others I have tested it. If
+that's a problem, it's all good. You can either move along or write the tests.
+It is open source, after all. At some arbitrary point I will consider it to be
+a v1.0 release and probably only ever return to it if I absolutely have to.
