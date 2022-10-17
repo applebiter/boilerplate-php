@@ -37,7 +37,7 @@ class AccountPreferencesForm extends Form
         $validator
             ->scalar('theme')
             ->maxLength('theme', 36)
-            ->inList('theme', $this->getThemes());
+            ->inList('theme', array_keys($this->getThemes()));
         
         $validator
             ->scalar('timezone')
