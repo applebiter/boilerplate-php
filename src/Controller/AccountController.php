@@ -371,7 +371,7 @@ class AccountController extends AppController
             } 
             else 
             {
-                $this->Flash->error(__('Registration failed. Please, try again.'));
+                $this->Flash->error(__('One or more errors were encountered while processing your input. Please check the form below for more information.'));
             }
         }
 

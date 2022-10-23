@@ -16,7 +16,7 @@ if ($session->check('Auth.User'))
   <head>
     <meta charset="utf-8">
     <title>Applebiter.com</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <?= $this->fetch('meta') ?>
     <link rel="stylesheet" href="/assets/css/<?= h($theme) ?>/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/vendor/bootstrap-icons/font/bootstrap-icons.css">
@@ -27,7 +27,10 @@ if ($session->check('Auth.User'))
   <body>
     <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
       <div class="container">
-        <a href="/" class="navbar-brand">Applebiter.com</a>
+        <a href="/" class="navbar-brand">
+          <i class="bi bi-app"></i>
+          applebiter.com
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -50,13 +53,24 @@ if ($session->check('Auth.User'))
           <?php else : ?>
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="/account/login" id="login"><?= __('Log In') ?></a>
+              <a class="nav-link" href="/account/login" id="login">
+                <i class="bi bi-person-circle"></i> 
+                <?= __('Log In') ?>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/account/register" id="register">
+                <i class="bi bi-person-lines-fill"></i> 
+                <?= __('Register') ?>
+              </a>
             </li>
           </ul>
           <?php endif ?>
           <ul class="navbar-nav ms-md-auto">
             <li class="nav-item">
-              <a target="_blank" rel="noopener" class="nav-link" href="https://github.com/applebiter"><i class="bi bi-github"></i> GitHub</a>
+              <a target="_blank" rel="noopener" class="nav-link" href="https://github.com/applebiter">
+                <i class="bi bi-github"></i> GitHub
+              </a>
             </li>
           </ul>
         </div>
@@ -72,6 +86,9 @@ if ($session->check('Auth.User'))
           <div class="col-lg-12">
             <ul class="list-unstyled">
               <li class="float-end"><a href="#top">Back to top</a></li>
+              <li><a href="/pages/about">About</a></li>
+              <li><a href="/pages/privacy">Privacy</a></li>
+              <li><a href="/pages/terms">Terms</a></li>
               <li><a href="https://github.com/applebiter">GitHub</a></li>
             </ul>
             <p class="text-muted small">

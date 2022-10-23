@@ -44,28 +44,28 @@ class AccountRegistrationForm extends Form
     public function validationDefault(Validator $validator) : Validator
     {
         $validator
-            ->scalar('username')
-            ->asciiAlphaNumeric('username')
-            ->maxLength('username', 36)
-            ->allowEmptyString('username', false);
+            ->notEmptyString('username', 'A username must be provided.')
+            ->asciiAlphaNumeric('username', 'Only letters and numbers are allowed in a username.')
+            ->maxLength('username', 36, 'The username can be no more than 36 characters in length.')  
+            ->minLength('username', 5, 'The username can be no fewer than 5 characters in length.');
         
         $validator
-            ->scalar('password')
-            ->ascii('password')
-            ->maxLength('password', 36)
-            ->allowEmptyString('password', false);
+            ->notEmptyString('password', 'A password must be provided.')
+            ->ascii('password', 'Only ASCII characters are allowed in the password.')
+            ->maxLength('password', 36, 'The password can be no more than 36 characters in length.')
+            ->minLength('password', 8, 'The password can be no fewer than 8 characters in length.');
         
         $validator
+            ->notEmptyString('repassword', 'Re-enter the password to confirm it.')
             ->sameAs('repassword', 'password', 'The passwords do not match.', true);
 
         $validator
-            ->scalar('email')
-            ->ascii('password')
-            ->email('email')
-            ->maxLength('email', 100)
-            ->allowEmptyString('email', false);
+            ->notEmptyString('email', 'An email address must be provided.')
+            ->email('email', false, 'A valid email address is required.')
+            ->maxLength('email', 100, 'The email can be no more than 100 characters in length.');
         
         $validator 
+            ->notEmptyString('reemail', 'Re-enter the email to confirm it.')
             ->sameAs('reemail', 'email', 'The email addresses do not match.', true);
 
         $validator
@@ -88,6 +88,29 @@ class AccountRegistrationForm extends Form
     protected function _execute(array $data) : bool
     {
         $UsersTable = TableRegistry::getTableLocator()->get('Users');
+
+        $usernameArr = $UsersTable->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'username'
+        ])->toArray();
+
+        if (in_array($data['username'], $usernameArr))
+        {
+            $this->_errors = ['username' => ['unique' => 'That username is already taken.']];
+            return false;
+        }
+
+        $emailArr = $UsersTable->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'email'
+        ])->toArray();
+
+        if (in_array($data['email'], $emailArr))
+        {
+            $this->_errors = ['email' => ['unique' => 'That email is already taken.']];
+            return false;
+        }
+
         $user = $UsersTable->newEntity([
             'email' => $data['email'],
             'username' => $data['username'],
