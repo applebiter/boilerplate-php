@@ -32,14 +32,15 @@ class AccountActivationForm extends Form
     public function validationDefault(Validator $validator) : Validator
     {
         $validator
-            ->scalar('username')
-            ->maxLength('username', 36)
-            ->allowEmptyString('username', false);
+            ->notEmptyString('username', 'A username must be provided.')
+            ->asciiAlphaNumeric('username', 'Only letters and numbers are allowed in a username.')
+            ->maxLength('username', 36, 'The username can be no more than 36 characters in length.')  
+            ->minLength('username', 5, 'The username can be no fewer than 5 characters in length.');
         
         $validator
-            ->scalar('secret')
-            ->maxLength('secret', 36)
-            ->allowEmptyString('secret', false);
+            ->notEmptyString('secret', 'An activation code must be provided.')
+            ->maxLength('secret', 100, 'The activation code can be no more than 100 characters in length.')
+            ->minLength('secret', 8, 'The activation code can be no fewer than 8 characters in length.');
         
         return $validator;
     }
@@ -54,17 +55,32 @@ class AccountActivationForm extends Form
     {
         $UsersTable = TableRegistry::getTableLocator()->get('Users');
 
+        if (!$UsersTable->find('byUsername', ['username' => $data['username']])->first())
+        {
+            $this->_errors = ['username' => [
+                'exists' => 'No account was found matching username "'.$data['username'].'"'
+            ]];
+            return false;
+        }
+
+        if ($expired = $UsersTable->find('expired', ['username' => $data['username']])->first())
+        {
+            $UsersTable->delete($expired);
+            $this->_errors = ['secret' => [
+                'expired' => 'The activation code has expired. You will have to start the registration process over from the beginning.'
+            ]];
+            return false;
+        }
+
         if (!$user = $UsersTable->find('activate', [
             'username' => $data['username'],
             'secret' => $data['secret'
         ]])->first())
         {
+            $this->_errors = ['username' => [
+                'unknown' => 'An error was encountered. Perhaps you have already activated the account? Try logging in.'
+            ]];
             return false;
-        }
-
-        if ($user->is_activated)
-        {
-            return true;
         }
 
         $user->secret = null;

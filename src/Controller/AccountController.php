@@ -51,8 +51,7 @@ class AccountController extends AppController
             else 
             {
                 $session->destroy();
-                $this->Flash->error(__('Account activation failed. Please, try again.'));
-                return $this->redirect(['action' => 'register']);
+                $this->Flash->error(__('Account activation failed. Check the form for more details.'));
             }
         }
 
@@ -232,7 +231,7 @@ class AccountController extends AppController
             else 
             {
                 $session->destroy();
-                $this->Flash->error(__('Login failed. Please, try again.'));
+                $this->Flash->error(__('Login failed. Check the form for more details.'));
             }
         }
 
@@ -371,7 +370,7 @@ class AccountController extends AppController
             } 
             else 
             {
-                $this->Flash->error(__('One or more errors were encountered while processing your input. Please check the form below for more information.'));
+                $this->Flash->error(__('One or more errors were encountered. Please check the form for more specific information.'));
             }
         }
 

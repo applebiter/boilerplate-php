@@ -327,6 +327,25 @@ class UsersTable extends Table
         
         return $query;
     }
+
+    /**
+     * findExpired
+     *
+     * @param \Cake\ORM\Query $query
+     * @param array $options
+     * @return \Cake\Datasource\EntityInterface|array|NULL
+     */
+    public function findExpired(Query $query, array $options) 
+    {
+        $query->where([
+            'Users.username' => $options['username'],
+            'Users.is_activated' => 0,
+            'Users.secret' => $options['secret'],
+            'Users.created <' => FrozenTime::now()->modify('-1 hour'),
+        ]);
+        
+        return $query;
+    }
     
     /**
      * findResetPasswordRequest
