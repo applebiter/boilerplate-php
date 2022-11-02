@@ -164,7 +164,7 @@ class AccountRegistrationForm extends Form
                 'website_name' => Configure::read('Applebiter.Mailer.website_name'),
                 'host_name' => Configure::read('Applebiter.Mailer.host_name')
             ])
-            ->setFrom(Configure::read('Applebiter.Mailer.email_from'))
+            ->setSender(Configure::read('Applebiter.Mailer.email_from'), Configure::read('Applebiter.Mailer.name_from'))
             ->setTo($user->email)
             ->setSubject("Activate your new account with " . Configure::read('Applebiter.Mailer.website_name'))
             ->deliver();

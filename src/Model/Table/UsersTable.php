@@ -380,8 +380,16 @@ class UsersTable extends Table
      */
     public function findResetPassword(Query $query, array $options)
     {
+        $query = $this->find('all', [
+            'conditions' => [
+                'OR' => [
+                    'Users.email LIKE' => $options['identity'],
+                    'Users.username LIKE' => $options['identity']
+                ]
+            ]
+        ]);
+        
         $query->where([
-            'Users.email' => $options['email'],
             'Users.is_activated' => 1,
             'Users.secret' => $options['secret'],
             'Users.modified >' => FrozenTime::now()->modify('-1 hour')

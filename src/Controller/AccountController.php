@@ -406,7 +406,8 @@ class AccountController extends AppController
             } 
             else 
             {
-                $this->Flash->error(__('Either no match was found or the secret code was expired. Please try again'));
+                $errors = $form->getErrors();
+                $this->Flash->error($errors['identity']);
                 return $this->redirect(['action' => 'resetpwdreq']);
             }
         }
@@ -443,7 +444,7 @@ class AccountController extends AppController
         {
             if ($form->execute($this->request->getData()))
             {
-                $this->Flash->success(__('Check your email inbox for the newly-generated password.'));
+                $this->Flash->success(__('Check your email inbox for a confirmation code.'));
                 return $this->redirect(['action' => 'resetpwd']);
             } 
             else 

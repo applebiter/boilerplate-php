@@ -21,7 +21,8 @@ class AccountResetPasswordForm extends Form
     protected function _buildSchema(Schema $schema) : Schema
     {
         return $schema
-            ->addField('identity', ['type' => 'string']);
+            ->addField('identity', ['type' => 'string'])
+            ->addField('secret', ['type' => 'string']);
     }
     
     /**
@@ -33,14 +34,14 @@ class AccountResetPasswordForm extends Form
     public function validationDefault(Validator $validator) : Validator
     {
         $validator
-            ->scalar('identity')
-            ->maxLength('identity', 100)
-            ->allowEmptyString('identity', false);
+            ->notEmptyString('identity', 'A username or email address must be provided.')
+            ->maxLength('identity', 100, 'The username or email address can be no more than 100 characters in length.')
+            ->minLength('identity', 5, 'The username or email address can be no fewer than 5 characters in length.');
 
         $validator
-            ->scalar('secret')
-            ->maxLength('secret', 100)
-            ->allowEmptyString('secret', false);
+            ->notEmptyString('secret', 'The secret code sent to your email inbox is required.')
+            ->maxLength('secret', 100, 'The secret code can be no more than 100 characters in length.')
+            ->minLength('secret', 8, 'The secret code can be no fewer than 8 characters in length.');
         
         return $validator;
     }
@@ -49,22 +50,24 @@ class AccountResetPasswordForm extends Form
      * _execute 
      * 
      * {@inheritDoc}
-     * @see \Cake\Form\Form::_execute()
+     * @see \Cake\Form\Form::_execute()  
      */
     protected function _execute(array $data) : bool
     {
         $UsersTable = TableRegistry::getTableLocator()->get('Users');
 
         if (!$user = $UsersTable->find('resetPassword', [
-            'email' => $data['email'],
+            'identity' => $data['identity'],
             'secret' => $data['secret']
         ])->first())
         {
+            $this->_errors = ['identity' => ['exists' => 'No account matching account was found or the confirmation code was expired.']];
             return false;
         }
 
         if (!$user->is_activated)
         {
+            $this->_errors = ['identity' => ['inactive' => 'This account is not activated and cannot be modified until it has been activated.']];
             return false;
         }
 
@@ -83,7 +86,7 @@ class AccountResetPasswordForm extends Form
                 'website_name' => Configure::read('Applebiter.Mailer.website_name'),
                 'host_name' => Configure::read('Applebiter.Mailer.host_name')
             ])
-            ->setFrom(Configure::read('Applebiter.Mailer.email_from'))
+            ->setSender(Configure::read('Applebiter.Mailer.email_from'), Configure::read('Applebiter.Mailer.name_from'))
             ->setTo($user->email)
             ->setSubject("Did you request a password reset from " . Configure::read('Applebiter.Mailer.website_name') . "?")
             ->deliver();
