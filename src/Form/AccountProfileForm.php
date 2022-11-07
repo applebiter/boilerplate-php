@@ -2,10 +2,12 @@
 namespace App\Form;
 
 use App\Model\Entity\User;
+use Cake\Core\Configure;
 use Cake\Form\Form;
 use Cake\Form\Schema;
 use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
+use Cake\Utility\Text;
 use Laminas\Diactoros\UploadedFile;
 
 class AccountProfileForm extends Form
@@ -38,18 +40,18 @@ class AccountProfileForm extends Form
             ->integer('user_id');
         
         $validator
-            ->scalar('full_name')
-            ->maxLength('full_name', 60)
+            ->scalar('full_name', 'Incorrect data type.')
+            ->maxLength('full_name', 60, 'This value can be no more than 60 characters in length.')
             ->allowEmptyString('full_name', true);
         
         $validator
-            ->scalar('short_biography')
-            ->maxLength('short_biography', 255)
+            ->scalar('short_biography', 'Incorrect data type.')
+            ->maxLength('short_biography', 255, 'This value can be no more than 255 characters in length.')
             ->allowEmptyString('short_biography', true);
         
         $validator
-            ->scalar('long_biography')
-            ->maxLength('long_biography', 16383)
+            ->scalar('long_biography', 'Incorrect data type.')
+            ->maxLength('long_biography', 16383, 'This value can be no more than 16383 characters in length.')
             ->allowEmptyString('long_biography', true);
         
         return $validator;
@@ -63,16 +65,94 @@ class AccountProfileForm extends Form
      */
     protected function _execute(array $data) : bool
     {
+        $ProfilesTable = TableRegistry::getTableLocator()->get('Profiles');        
+        
+        if (!$profile = $ProfilesTable->find()->where(['user_id' => $data['user_id']])->first())
+        {
+            return false;
+        }
+        
         if (isset($data['avatar']) && ($data['avatar'] instanceof UploadedFile) 
             && !$data['avatar']->geterror() && $data['avatar']->getSize())
         {
-            if (!$mimetype = $this->isValidUploadedImageFile($data['avatar']))
+            $mimetype = $this->isValidUploadedImageFile($data['avatar']);
+            
+            if ($mimetype === false)
             {
+                $this->_errors = ['avatar' => ['mimetype' => 'Only files of type GIF, JPEG, or PNG are allowed.']];
                 return false;
             }
+            
+            $ImagesTable = TableRegistry::getTableLocator()->get('Images');
+            
+            $uuid = Text::uuid();
+            $date = date("Y-m-d H:i:s");
+            $path  = Configure::read('Applebiter.Storage.sounddata') . '/' . date("Y", strtotime($date));
+            $path = $path . '/' . date("m", strtotime($date));
+            $location = $path . '/' . date("d", strtotime($date));
+            
+            if (!is_dir($location))
+            {
+                if (!@mkdir($location, 0700, true))
+                {
+                    $this->_errors = ['avatar' => ['filesystem' => 'Unable to create the image storage directory.']];
+                    return false;
+                }
+            }
+            
+            $nameArr = explode('.', $data['avatar']->getClientFilename());
+            $originalFilename = current($nameArr);
+            $originalFilename = addcslashes(strip_tags($originalFilename), '$');
+            $extension = end($nameArr);
+            $extension = trim(strtolower($extension));
+            $filename = $uuid . '.' . $extension;
+            $path = $location . '/' . $filename;
+            $size = $data['avatar']->getSize();
+            
+            $data['avatar']->moveTo($path);
+            
+            $dimensions = getimagesize($path);
+            $image = $ImagesTable->newEmptyEntity();
+            $image->user_id = $data['user_id'];
+            $image->is_avatar = 1;
+            $image->uuid = $uuid;
+            $image->location =$location;
+            $image->filename = $filename;
+            $image->extension = $extension;
+            $image->mimetype = $mimetype;
+            $image->title = $originalFilename;
+            $image->size = $size;
+            $image->width = $dimensions[0];
+            $image->height = $dimensions[1];
+            $image->created = $date;
+            $image->modified = $date;
+
+            if ($existing = $ImagesTable->find()
+                ->where(['user_id' => $data['user_id'], 'is_avatar' => 1])
+                ->first())
+            {
+                $ImagesTable->delete($existing);
+            }
+            
+            if (!$ImagesTable->save($image))
+            {
+                $this->_errors = ['avatar' => ['database' => 'Unable to insert the image into the database.']];
+                return false;
+            } 
+
+            $data['avatar'] = "/images/show/{$image->id}";
+        } 
+        else 
+        {
+            unset($data['avatar']);
         }
 
-        return true;
+        $profile->avatar = isset($data['avatar']) && !empty($data['avatar']) ? $data['avatar'] : null;
+        $profile->full_name = $data['full_name'];
+        $profile->short_biography = $data['short_biography'];
+        $profile->long_biography = $data['long_biography'];
+        
+        return $ProfilesTable->save($profile) ? true : false;
     }
     
     /**

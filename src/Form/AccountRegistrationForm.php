@@ -44,27 +44,32 @@ class AccountRegistrationForm extends Form
     public function validationDefault(Validator $validator) : Validator
     {
         $validator
+            ->scalar('username', 'Incorrect data type.')
             ->notEmptyString('username', 'A username must be provided.')
             ->asciiAlphaNumeric('username', 'Only letters and numbers are allowed in a username.')
             ->maxLength('username', 36, 'The username can be no more than 36 characters in length.')  
             ->minLength('username', 5, 'The username can be no fewer than 5 characters in length.');
         
         $validator
+            ->scalar('password', 'Incorrect data type.')
             ->notEmptyString('password', 'A password must be provided.')
             ->ascii('password', 'Only ASCII characters are allowed in the password.')
             ->maxLength('password', 36, 'The password can be no more than 36 characters in length.')
             ->minLength('password', 8, 'The password can be no fewer than 8 characters in length.');
         
         $validator
+            ->scalar('repassword', 'Incorrect data type.')
             ->notEmptyString('repassword', 'Re-enter the password to confirm it.')
             ->sameAs('repassword', 'password', 'The passwords do not match.', true);
 
         $validator
+            ->scalar('email', 'Incorrect data type.')
             ->notEmptyString('email', 'An email address must be provided.')
             ->email('email', false, 'A valid email address is required.')
             ->maxLength('email', 100, 'The email can be no more than 100 characters in length.');
         
         $validator 
+            ->scalar('reemail', 'Incorrect data type.')
             ->notEmptyString('reemail', 'Re-enter the email to confirm it.')
             ->sameAs('reemail', 'email', 'The email addresses do not match.', true);
 

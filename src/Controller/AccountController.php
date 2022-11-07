@@ -301,8 +301,8 @@ class AccountController extends AppController
      * profile
      * 
      * The sparkly name plate that registered users present to one another is stored as profile 
-     * data, and it includes an image avatar (GIF, JPEG, or PNG), a full name, a short biography 
-     * field and a long biography field (varchar(255) and text, respectively). When a user 
+     * data, and it includes an image avatar (GIF, JPEG, or PNG), a full name, a brief introduction 
+     * field and a personal manifesto field (varchar(255) and text, respectively). When a user 
      * uploads a new avatar, the existing avatar is deleted from the db and filesystem.
      *
      * @return \Cake\Http\Response|null|void Renders view

@@ -42,6 +42,7 @@ if ($session->check('Auth.User'))
                 <?= __('Account') ?>
               </a>
               <div class="dropdown-menu" aria-labelledby="account">
+                <a class="dropdown-item" href="/account/home"><?= __('Account Home') ?></a>
                 <a class="dropdown-item" href="/account/changepwd"><?= __('Change Your Password') ?></a>
                 <a class="dropdown-item" href="/account/preferences"><?= __('Account Preferences') ?></a>
                 <a class="dropdown-item" href="/account/profile"><?= __('Manage Your Profile') ?></a>

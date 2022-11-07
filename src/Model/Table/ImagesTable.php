@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use App\Model\Entity\Image;
+use ArrayObject;
+use Cake\Event\EventInterface;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -73,13 +76,14 @@ class ImagesTable extends Table
             ->add('uuid', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
-            ->scalar('title')
-            ->maxLength('title', 100)
-            ->requirePresence('title', 'create')
-            ->notEmptyString('title');
+            ->scalar('title', 'Incorrect data type.')
+            ->maxLength('title', 100, 'The title can be no more than 100 characters in length.')
+            ->requirePresence('title', 'create', 'A title is required.')
+            ->notEmptyString('title', 'A title is required.');
 
         $validator
-            ->scalar('description')
+            ->scalar('description', 'Incorrect data type.')
+            ->maxLength('description', 16383, 'The description can be no more than 16383 characters in length.')
             ->allowEmptyString('description');
 
         $validator
@@ -87,7 +91,7 @@ class ImagesTable extends Table
             ->notEmptyString('is_avatar');
 
         $validator
-            ->scalar('location')
+            ->scalar('location', 'Incorrect data type.')
             ->maxLength('location', 127)
             ->allowEmptyString('location');
 
@@ -97,13 +101,15 @@ class ImagesTable extends Table
             ->allowEmptyFile('filename');
 
         $validator
-            ->integer('size')
+            ->nonNegativeInteger('size')
             ->allowEmptyString('size');
 
         $validator
+            ->nonNegativeInteger('width')
             ->allowEmptyString('width');
 
         $validator
+            ->nonNegativeInteger('height')
             ->allowEmptyString('height');
 
         $validator
@@ -133,5 +139,122 @@ class ImagesTable extends Table
         $rules->add($rules->existsIn('user_id', 'Users'), ['errorField' => 'user_id']);
 
         return $rules;
+    }
+    
+    /**
+     * beforeDelete
+     *
+     * @param EventInterface $event
+     * @param Image $image
+     * @param ArrayObject $options
+     * @return boolean
+     */
+    public function beforeDelete(EventInterface $event, Image $image, $options)
+    {
+        $path = $image->location . DS . $image->filename;
+        $parr = explode('.', $image->filename);
+        $uuid = array_shift($parr);
+        
+        if (file_exists($image->location . DS . $uuid) && is_dir($image->location . DS . $uuid)) 
+        {
+            foreach (@scandir($image->location . DS . $uuid) as $item)
+            {
+                if ($item == '.' || $item == '..')
+                {
+                    continue;
+                }
+                else
+                {
+                    exec(sprintf(
+                        "rm -rf %s/%s/%s", 
+                        escapeshellarg($image->location),
+                        escapeshellarg($uuid),
+                        escapeshellarg($item)
+                    ));
+                }
+            }
+            exec(sprintf("rm -rf %s", escapeshellarg($image->location . DS . $uuid)));
+        }
+        
+        exec(sprintf("rm -rf %s", escapeshellarg($path)));
+        
+        $dayIsEmpty = true;
+        
+        foreach (@scandir($image->location) as $item)
+        {
+            if ($item == '.' || $item == '..')
+            {
+                continue;
+            }
+            else
+            {
+                $dayIsEmpty = false;
+            }
+        }
+        if ($dayIsEmpty)
+        {
+            exec(sprintf("rm -rf %s", escapeshellarg($image->location)));
+        }
+        
+        $month = dirname($image->location);
+        $monthIsEmpty = true;
+        
+        foreach (@scandir($month) as $item)
+        {
+            if ($item == '.' || $item == '..')
+            {
+                continue;
+            }
+            else
+            {
+                $monthIsEmpty = false;
+            }
+        }
+        if ($monthIsEmpty)
+        {
+            exec(sprintf("rm -rf %s", escapeshellarg($month)));
+        }
+        
+        $year = dirname($month);
+        $yearIsEmpty = true;
+        
+        foreach (@scandir($year) as $item)
+        {
+            if ($item == '.' || $item == '..')
+            {
+                continue;
+            }
+            else
+            {
+                $yearIsEmpty = false;
+            }
+        }
+        if ($yearIsEmpty)
+        {
+            exec(sprintf("rm -rf %s", escapeshellarg($year)));
+        }
+        
+        return true;
+    }
+    
+    /**
+     * FindSearch method
+     *
+     * @param Query $query
+     * @param array $options
+     * @return \Cake\ORM\Query
+     */
+    public function findSearch(Query $query, array $options)
+    {
+        $query = $this->find('all', [
+            'conditions' => [
+                'OR' => [
+                    'Images.title LIKE' => '%'.$$options['term'].'%',
+                    'Images.description LIKE' => '%'.$$options['term'].'%'
+                ],
+            ]
+        ]);
+        
+        return $query;
     }
 }
