@@ -13,6 +13,11 @@ use Laminas\Diactoros\UploadedFile;
 class AccountProfileForm extends Form
 {
     /**
+     * @var App\Model\Entity\Profile
+     */
+    private $profile;
+    
+    /**
      * _buildSchema 
      * 
      * {@inheritDoc}
@@ -67,7 +72,7 @@ class AccountProfileForm extends Form
     {
         $ProfilesTable = TableRegistry::getTableLocator()->get('Profiles');        
         
-        if (!$profile = $ProfilesTable->find()->where(['user_id' => $data['user_id']])->first())
+        if (!$this->profile = $ProfilesTable->find()->where(['user_id' => $data['user_id']])->first())
         {
             return false;
         }
@@ -75,6 +80,8 @@ class AccountProfileForm extends Form
         if (isset($data['avatar']) && ($data['avatar'] instanceof UploadedFile) 
             && !$data['avatar']->geterror() && $data['avatar']->getSize())
         {
+            
+            
             $mimetype = $this->isValidUploadedImageFile($data['avatar']);
             
             if ($mimetype === false)
@@ -87,7 +94,7 @@ class AccountProfileForm extends Form
             
             $uuid = Text::uuid();
             $date = date("Y-m-d H:i:s");
-            $path  = Configure::read('Applebiter.Storage.sounddata') . '/' . date("Y", strtotime($date));
+            $path  = Configure::read('Applebiter.Storage.imagedata') . '/' . date("Y", strtotime($date));
             $path = $path . '/' . date("m", strtotime($date));
             $location = $path . '/' . date("d", strtotime($date));
             
@@ -144,15 +151,16 @@ class AccountProfileForm extends Form
         } 
         else 
         {
-            unset($data['avatar']);
+            $data['avatar'] = null;
         }
 
-        $profile->avatar = isset($data['avatar']) && !empty($data['avatar']) ? $data['avatar'] : null;
-        $profile->full_name = $data['full_name'];
-        $profile->short_biography = $data['short_biography'];
-        $profile->long_biography = $data['long_biography'];
+        $this->profile->avatar = $data['avatar'] ? $data['avatar'] : $this->profile->avatar;
+        $this->profile->full_name = $data['full_name'];
+        $this->profile->short_biography = $data['short_biography'];
+        $this->profile->long_biography = $data['long_biography'];        
+        $this->profile = $ProfilesTable->save($this->profile);
         
-        return $ProfilesTable->save($profile) ? true : false;
+        return true;
     }
     
     /**
@@ -187,5 +195,10 @@ class AccountProfileForm extends Form
         }
         
         return false;
+    }
+
+    public function getProfile()
+    {
+        return $this->profile;
     }
 }

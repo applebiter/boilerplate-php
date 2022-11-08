@@ -3,12 +3,19 @@ use Cake\Core\Configure;
 
 $theme = file_get_contents(Configure::read("Applebiter.Theme.themefile"));
 $session = $this->request->getSession();
-$authUser = null;
+$authUser = ($this->request->getSession()->check('Auth.User')) ? $this->request->getSession()->read('Auth.User') : null;
 
-if ($session->check('Auth.User'))
+if ($authUser)
 {
-    $authUser = $session->read('Auth.User');
     $theme = $authUser->preference->theme;
+}
+ 
+$avatarId = null;
+
+if ($authUser && $authUser->profile->avatar)
+{
+    $pathArr = explode('/', $authUser->profile->avatar);
+    $avatarId = trim(array_pop($pathArr));
 }
 ?>
 <!DOCTYPE html>
@@ -25,7 +32,7 @@ if ($session->check('Auth.User'))
     <?= $this->fetch('css') ?>
   </head>
   <body>
-    <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+    <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
       <div class="container">
         <a href="/" class="navbar-brand">
           <i class="bi bi-app"></i>
@@ -36,9 +43,13 @@ if ($session->check('Auth.User'))
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
         <?php if ($authUser) : ?>  
-        <ul class="navbar-nav">
+          <ul class="navbar-nav ms-md-auto">            
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="account">
+              <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="account"
+                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <?php if ($avatarId) : ?>
+                <div style="background-image:url('/images/thumbnail/<?= $avatarId ?>/30x30');background-repeat:no-repeat;background-position:50%;border-radius:50%;width:24px;height:24px;" class="me-2"></div>
+                <?php endif ?>
                 <?= __('Account') ?>
               </a>
               <div class="dropdown-menu" aria-labelledby="account">
@@ -66,7 +77,6 @@ if ($session->check('Auth.User'))
               </a>
             </li>
           </ul>
-          <?php endif ?>
           <ul class="navbar-nav ms-md-auto">
             <li class="nav-item">
               <a target="_blank" rel="noopener" class="nav-link" href="https://github.com/applebiter">
@@ -74,6 +84,7 @@ if ($session->check('Auth.User'))
               </a>
             </li>
           </ul>
+          <?php endif ?>
         </div>
       </div>
     </div>

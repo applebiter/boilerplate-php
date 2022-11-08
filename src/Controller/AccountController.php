@@ -285,8 +285,8 @@ class AccountController extends AppController
             {
                 $authUser->preference->theme = $data['theme'];
                 $authUser->preference->timezone = $data['timezone'];
-                $this->Flash->success(__('Preferences saved.'));
-                return $this->redirect(['action' => 'home']);
+                $session->write('Auth.User', $authUser);
+                return $this->redirect($this->referer());
             } 
             else 
             {
@@ -327,12 +327,13 @@ class AccountController extends AppController
             
             if ($form->execute($data))
             {
-                $this->Flash->success(__('Profile saved.'));
-                return $this->redirect(['action' => 'home']);
+                $authUser->profile = $form->getProfile();
+                $session->write('Auth.User', $authUser);
+                return $this->redirect($this->referer());
             } 
             else 
             {
-                $this->Flash->error(__('Profile was not saved!'));
+                $this->Flash->error(__('The profile was not saved!'));
             }
         }
 
