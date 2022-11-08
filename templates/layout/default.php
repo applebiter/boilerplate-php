@@ -57,7 +57,7 @@ if ($authUser && $authUser->profile->avatar)
                 <a class="dropdown-item" href="/account/changepwd"><?= __('Change Your Password') ?></a>
                 <a class="dropdown-item" href="/account/preferences"><?= __('Account Preferences') ?></a>
                 <a class="dropdown-item" href="/account/profile"><?= __('Manage Your Profile') ?></a>
-                <a class="dropdown-item" href="/account/devices"><?= __('SMS Devices') ?></a>
+                <a class="dropdown-item" href="/account/devices"><?= __('Mobile Devices') ?></a>
                 <a class="dropdown-item" href="/account/logout"><?= __('Log Out') ?></a>
               </div>
             </li>

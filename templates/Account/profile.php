@@ -29,13 +29,15 @@ if ($authUser->profile->avatar)
             <div class="text-center align-items-center justify-content-center mt-4 p-3 shadow">
 
                 <?php if ($avatarId) : ?>
-                <div style="background-image:url('/images/thumbnail/<?= $avatarId ?>/180x180');background-repeat:no-repeat;background-position:50%;border-radius:50%;width:150px;height:150px;display:inline-block" 
-                    class="shadow"></div>
+                <div style="background-image:url('/images/thumbnail/<?= $avatarId ?>/180x180');background-repeat:no-repeat;background-position:50%;border-radius:50%;width:150px;height:150px;display:inline-block;padding-top:120px" 
+                    class="shadow small">
+                </div>
                 <?php else : ?>
-                <img src="/assets/img/avatar.svg" class="rounded-circle" style="width: 150px;" alt="Avatar" />
+                <div style="background-image:url('/favicon.png');background-repeat:no-repeat;background-position:50%;border-radius:50%;width:150px;height:150px;display:inline-block" 
+                    class="shadow"></div>
                 <?php endif ?> 
 
-                <h5 class="mb-2"><strong>
+                <h5 class="mt-2 mb-2"><strong>
                     <?= $authUser->profile->full_name ? h($authUser->profile->full_name) : h($authUser->username) ?>
                 </strong></h5>
 
@@ -44,27 +46,35 @@ if ($authUser->profile->avatar)
         </div>
 
         <div class="col-xxl-5 col-lg-7">
+            <div class="row gx-3">
+                <div class="col-md-6">
 
-            <div class="form-group">
-                <label for="avatar" class="form-label">
-                    <?= __('Avatar') ?>
-                </label>
-                <input class="form-control" type="file" id="avatar" name="avatar">
-                <?php if ($this->Form->error('avatar')) : ?>
-                <div class="text-danger"><?php print_r($this->Form->error('avatar')) ?></div>
-                <?php endif ?>
-            </div>
-        
-            <div class="form-group">
-                <label for="full_name" class="col-form-label mt-4">
-                    <?= __('Full Name') ?>
-                </label>
-                <input type="input" class="form-control<?= $this->Form->error('full_name') ? ' is-invalid' : '' ?>" 
-                    id="full_name" name="full_name" required maxlength="60" value="<?= h($authUser->profile->full_name) ?>" 
-                    autocomplete="off">
-                <?php if ($this->Form->error('full_name')) : ?>
-                <div class="text-danger"><?php print_r($this->Form->error('full_name')) ?></div>
-                <?php endif ?>
+                    <div class="form-group">
+                        <label for="avatar" class="col-form-label mt-4">
+                            <?= __('Upload New Avatar') ?>
+                        </label>
+                        <input class="form-control" type="file" id="avatar" name="avatar">
+                        <?php if ($this->Form->error('avatar')) : ?>
+                        <div class="text-danger"><?php print_r($this->Form->error('avatar')) ?></div>
+                        <?php endif ?>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        <label for="full_name" class="col-form-label mt-4">
+                            <?= __('Full Name') ?>
+                        </label>
+                        <input type="input" class="form-control<?= $this->Form->error('full_name') ? ' is-invalid' : '' ?>" 
+                            id="full_name" name="full_name" required maxlength="60" value="<?= h($authUser->profile->full_name) ?>" 
+                            autocomplete="off">
+                        <?php if ($this->Form->error('full_name')) : ?>
+                        <div class="text-danger"><?php print_r($this->Form->error('full_name')) ?></div>
+                        <?php endif ?>
+                    </div>
+                    
+                </div>
             </div>
 
             <div class="form-group">
