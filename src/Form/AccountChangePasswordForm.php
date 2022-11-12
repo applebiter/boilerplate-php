@@ -40,17 +40,21 @@ class AccountChangePasswordForm extends Form
             ->integer('user_id');
         
         $validator
-            ->scalar('old_password')
-            ->maxLength('old_password', 36)
-            ->allowEmptyString('old_password', false);
+            ->scalar('old_password', 'Incorrect data type.')
+            ->maxLength('old_password', 36, 'The password can be no more than 36 characters in length.')
+            ->minLength('old_password', 8, 'The password can be no fewer than 8 characters in length.')
+            ->notEmptyString('old_password', 'Your current password must be provided.');
         
         $validator
-            ->scalar('password')
-            ->ascii('password')
-            ->maxLength('password', 36)
-            ->allowEmptyString('password', false);
+            ->scalar('password', 'Incorrect data type.')
+            ->notEmptyString('password', 'A new password must be provided.')
+            ->ascii('password', 'Only ASCII characters are allowed in the password.')
+            ->maxLength('password', 36, 'The password can be no more than 36 characters in length.')
+            ->minLength('password', 8, 'The password can be no fewer than 8 characters in length.');
         
         $validator
+            ->scalar('repassword', 'Incorrect data type.')
+            ->notEmptyString('repassword', 'The new password must be entered twice.')
             ->sameAs('repassword', 'password', 'The passwords do not match.', true);
 
         return $validator;

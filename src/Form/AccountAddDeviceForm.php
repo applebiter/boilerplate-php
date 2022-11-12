@@ -40,20 +40,20 @@ class AccountAddDeviceForm extends Form
             ->notEmptyString('user_id');
 
         $validator
-            ->scalar('name')
-            ->maxLength('name', 100)
-            ->requirePresence('name', 'create')
-            ->notEmptyString('name');
+            ->scalar('name', 'Invalid data type supplied.')
+            ->maxLength('name', 100, 'The device name can be no more than 100 characters in length.')
+            ->requirePresence('name', 'A name is required for the device.')
+            ->notEmptyString('name', 'A name is required for the device.');
 
         $validator
-            ->scalar('number')
-            ->maxLength('number', 150)
-            ->notEmptyString('number');
+            ->scalar('number', 'Invalid data type supplied.')
+            ->maxLength('number', 15, 'The device number can be no more than 15 characters in length.')
+            ->notEmptyString('number', 'A device number is required.');
 
         $validator
-            ->scalar('gateway')
-            ->maxLength('gateway', 100)
-            ->notEmptyString('gateway');
+            ->scalar('gateway', 'Invalid data type supplied.')
+            ->maxLength('gateway', 100, 'The mobile service provider gateway can be no more than 100 characters in length.')
+            ->notEmptyString('gateway', 'A mobile service provider gateway is required.');
 
         return $validator;
     }

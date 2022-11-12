@@ -41,7 +41,9 @@ if ($authUser->profile->avatar)
                     <?= $authUser->profile->full_name ? h($authUser->profile->full_name) : h($authUser->username) ?>
                 </strong></h5>
 
-                <p class="text-muted">Web designer <span class="badge bg-primary">PRO</span></p>
+                <p class="text-muted"><span class="badge bg-primary">
+                    <?= $authUser->role->name ?>
+                </span></p>
             </div>                     
         </div>
 

@@ -66,6 +66,9 @@
                     <option value="<?= h($key) ?>"><?= h($val) ?></option>
                     <?php endforeach ?>
                 </select>
+                <?php if ($this->Form->error('gateway')) : ?>
+                <div class="text-danger"><?php print_r($this->Form->error('gateway')) ?></div>
+                <?php endif ?>
             </div>
 
             <div class="text-end">

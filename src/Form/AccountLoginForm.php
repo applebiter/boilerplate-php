@@ -7,6 +7,7 @@ use Cake\Form\Schema;
 use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 use Sodium\Compat;
+use stdClass;
 
 class AccountLoginForm extends Form
 {
@@ -90,8 +91,15 @@ class AccountLoginForm extends Form
             'user_id' => $user->id
         ])->first();
 
+        $RolesTable = TableRegistry::getTableLocator()->get('Roles');
+        $role = $RolesTable->find()->where([
+            'id' => $user->role_id
+        ])->first();
+
         $user->preference = $preference;
-        $user->profile = $profile;            
+        $user->profile = $profile;      
+        $user->role = new stdClass();  
+        $user->role->name = $role->name;          
         $this->user = $user;
         
         return true;

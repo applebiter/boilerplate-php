@@ -53,12 +53,30 @@ if ($authUser && $authUser->profile->avatar)
                 <?= __('Account') ?>
               </a>
               <div class="dropdown-menu" aria-labelledby="account">
-                <a class="dropdown-item" href="/account/home"><?= __('Account Home') ?></a>
-                <a class="dropdown-item" href="/account/changepwd"><?= __('Change Your Password') ?></a>
-                <a class="dropdown-item" href="/account/preferences"><?= __('Account Preferences') ?></a>
-                <a class="dropdown-item" href="/account/profile"><?= __('Manage Your Profile') ?></a>
-                <a class="dropdown-item" href="/account/devices"><?= __('Mobile Devices') ?></a>
-                <a class="dropdown-item" href="/account/logout"><?= __('Log Out') ?></a>
+                <a class="dropdown-item" href="/account/home">
+                  <i class="bi bi-house-fill me-2"></i>
+                  <?= __('Account Home') ?>
+                </a>
+                <a class="dropdown-item" href="/account/changepwd">
+                  <i class="bi bi-key-fill me-2"></i>
+                  <?= __('Change Your Password') ?>
+                </a>
+                <a class="dropdown-item" href="/account/preferences">
+                  <i class="bi bi-sliders me-2"></i>
+                  <?= __('Account Preferences') ?>
+                </a>
+                <a class="dropdown-item" href="/account/profile">
+                  <i class="bi bi-person-fill me-2"></i>
+                  <?= __('Manage Your Profile') ?>
+                </a>
+                <a class="dropdown-item" href="/account/devices">
+                  <i class="bi bi-phone-vibrate me-2"></i>
+                  <?= __('Mobile Devices') ?>
+                </a>
+                <a class="dropdown-item" href="/account/logout">
+                  <i class="bi bi-door-open-fill me-2"></i>
+                  <?= __('Log Out') ?>
+                </a>
               </div>
             </li>
           </ul>
@@ -97,11 +115,11 @@ if ($authUser && $authUser->profile->avatar)
         <div class="row">
           <div class="col-lg-12">
             <ul class="list-unstyled">
-              <li class="float-end"><a href="#top">Back to top</a></li>
-              <li><a href="/pages/about">About</a></li>
-              <li><a href="/pages/privacy">Privacy</a></li>
-              <li><a href="/pages/terms">Terms</a></li>
-              <li><a href="https://github.com/applebiter">GitHub</a></li>
+              <li class="float-end"><a href="#top"><?= __('Back to top') ?></a></li>
+              <li><a href="/pages/about"><?= __('About') ?></a></li>
+              <li><a href="/pages/privacy"><?= __('Privacy') ?></a></li>
+              <li><a href="/pages/terms"><?= __('Terms') ?></a></li>
+              <li><a target="_blank" href="https://github.com/applebiter/boilerplate-php">GitHub</a></li>
             </ul>
             <p class="text-muted small">
                 Made by <a href="https://applebiter.com/">Richard Lucas</a>

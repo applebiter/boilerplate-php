@@ -3,13 +3,12 @@
     <div class="col-lg-5">
         <h2>
             <i class="bi bi-house-fill me-2"></i>
-            <?= __('Account Home') ?>
+            <?= __('Applebiter.com Terms of Use Agreement') ?>
         </h2>
         <p class="small">
-            <?= __('The starting place for managing your content and participation on this website.') ?>
+            <?= __('Wherein I implore the Reader not to foul the bedding.') ?>
         </p>
-        <?= $this->Flash->render() ?>
-        
+        <?= $this->Flash->render() ?>        
     </div>
 
     <div class="col-lg-7">
@@ -18,4 +17,3 @@
 
     </div>
 </div>
-

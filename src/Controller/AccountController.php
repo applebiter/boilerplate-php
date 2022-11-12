@@ -90,8 +90,7 @@ class AccountController extends AppController
             } 
             else 
             {
-                $session->destroy();
-                $this->Flash->error(__('Login failed. Please, try again.'));
+                $this->Flash->error(__('An error occurred. Check the form for more details.'));
             }
         }
 
@@ -140,8 +139,8 @@ class AccountController extends AppController
             {
                 $data = $this->request->getData();
                 $data['user_id'] = $session->read('Auth.User')->id;
-                $carrier = $this->fetchTable('Carriers')->get($data['gateway']);
-                $data['gateway'] = str_replace("number", $data['number'], $carrier->gateway);
+                $carrier = is_numeric($data['gateway']) ? $this->fetchTable('Carriers')->get($data['gateway']) : null;
+                $data['gateway'] = $carrier && $data['number'] ? str_replace("number", $data['number'], $carrier->gateway) : null;
                 
                 if ($form->execute($data))
                 {
