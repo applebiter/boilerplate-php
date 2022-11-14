@@ -203,24 +203,6 @@ class AccountController extends AppController
     }
 
     /**
-     * index
-     * 
-     * Sitewide landing page for logged-in users
-     *
-     * @return \Cake\Http\Response|null|void Renders view
-     */
-    public function index()
-    {
-        $session = $this->request->getSession();
-
-        if (!$session->check('Auth.User'))
-        {
-            $this->Flash->error(__('You must be logged in to access the members\' home page.'));
-            return $this->redirect(['action' => 'login']);
-        }
-    }
-
-    /**
      * login
      * 
      * Login form for registered users

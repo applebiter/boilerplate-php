@@ -31,7 +31,7 @@ if ($authUser && $authUser->profile->avatar)
     <link rel="stylesheet" href="/assets/css/custom.min.css">
     <?= $this->fetch('css') ?>
   </head>
-  <body>
+  <body class="d-flex flex-column h-100">
     <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
       <div class="container">
         <a href="/" class="navbar-brand">
@@ -41,9 +41,9 @@ if ($authUser && $authUser->profile->avatar)
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
+        <div class="collapse navbar-collapse  justify-content-end" id="navbarResponsive">
         <?php if ($authUser) : ?>  
-          <ul class="navbar-nav ms-md-auto">            
+          <ul class="navbar-nav">            
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="account"
                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -80,6 +80,23 @@ if ($authUser && $authUser->profile->avatar)
               </div>
             </li>
           </ul>
+          <?php if ($authUser->role->name == 'Owner') : ?>
+          <ul class="navbar-nav">            
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="admin"
+                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-sliders me-2"></i>
+                <?= __('Administration') ?>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="account">
+                <a class="dropdown-item" href="/admin">
+                  <i class="bi bi-speedometer2 me-2"></i>
+                  <?= __('Admin Dashboard') ?>
+                </a>
+              </div>
+            </li>
+          </ul>
+          <?php endif ?>
           <?php else : ?>
           <ul class="navbar-nav">
             <li class="nav-item">
@@ -95,7 +112,7 @@ if ($authUser && $authUser->profile->avatar)
               </a>
             </li>
           </ul>
-          <ul class="navbar-nav ms-md-auto">
+          <ul class="navbar-nav">
             <li class="nav-item">
               <a target="_blank" rel="noopener" class="nav-link" href="https://github.com/applebiter">
                 <i class="bi bi-github"></i> GitHub

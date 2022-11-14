@@ -202,7 +202,7 @@ class AdminController extends AppController
     /**
      * logs method
      *
-     * @param string|null $type log type (debug,error)
+     * @param string|null $type log type (activity,debug,error)
      * @return \Cake\Http\Response|null|void Renders view
      */
     public function logs($type = null)

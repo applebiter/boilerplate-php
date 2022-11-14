@@ -52,6 +52,9 @@ return static function (RouteBuilder $routes) {
          */
         $builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
 
+        $builder->connect('/account', ['controller' => 'Account', 'action' => 'home']);
+        $builder->connect('/admin', ['controller' => 'Admin', 'action' => 'dashboard']);
+
         /*
          * ...and connect the rest of 'Pages' controller's URLs.
          */
