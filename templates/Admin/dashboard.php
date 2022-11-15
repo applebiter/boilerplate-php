@@ -10,7 +10,7 @@
         </p>
         <?= $this->Flash->render() ?>
 
-        <div class="row gx-3">
+        <div class="row gx-3 mt-4">
 
             <div class="col-md-6 col-xl-4">
                 <div class="card border-secondary mb-3">
@@ -20,16 +20,16 @@
                     <div class="card-body">
                         <h5 class="card-title">
                             <i class="bi bi-map me-1"></i>
-                            <?= __('Application Endpoints') ?>
+                            <?= __('Endpoints') ?>
                         </h5>
-                        <p class="card-text">
-                            <?= __('Create endpoints for each available resource that requires authorization.') ?>
+                        <p class="card-text text-muted">
+                            <?= __('Resources requiring authorization.') ?>
                         </p>
                         <button type="button" class="btn btn-outline-default btn-sm" onclick="window.location='/admin/resources'">
                             <?= __('View All') ?>
                             <i class="bi bi-forward-fill ms-1"></i>
                         </button>
-                        <button type="button" class="btn btn-outline-default btn-sm" onclick="window.location='/admin/resources'">
+                        <button type="button" class="btn btn-outline-default btn-sm" onclick="window.location='/admin/addresource'">
                             <?= __('Add New') ?>
                             <i class="bi bi-plus-lg ms-1"></i>
                         </button>
@@ -45,10 +45,10 @@
                     <div class="card-body">
                         <h5 class="card-title">
                             <i class="bi bi-file-lock2 me-1"></i>
-                            <?= __('Endpoint Permissions') ?>
+                            <?= __('Permissions') ?>
                         </h5>
-                        <p class="card-text">
-                            <?= __('Define specific permissions for each resource based on user role.') ?>
+                        <p class="card-text text-muted">
+                            <?= __('Role-based permissions for endpoints.') ?>
                         </p>
                         <button type="button" class="btn btn-outline-default btn-sm" onclick="window.location='/admin/permissions'">
                             <?= __('View All') ?>
@@ -66,9 +66,19 @@
                     <div class="card-body">
                         <h5 class="card-title">
                             <i class="bi bi-person-badge me-1"></i>
-                            <?= __('User Role Definitions') ?>
+                            <?= __('Roles') ?>
                         </h5>
-                        <p class="card-text">Add &amp; List</p>
+                        <p class="card-text text-muted">
+                            <?= __('Define the user roles in the application.') ?>
+                        </p>
+                        <button type="button" class="btn btn-outline-default btn-sm" onclick="window.location='/admin/roles'">
+                            <?= __('View All') ?>
+                            <i class="bi bi-forward-fill ms-1"></i>
+                        </button>
+                        <button type="button" class="btn btn-outline-default btn-sm" onclick="window.location='/admin/addrole'">
+                            <?= __('Add New') ?>
+                            <i class="bi bi-plus-lg ms-1"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -79,8 +89,17 @@
                         <?= __('User Media') ?>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title"><?= __('User Avatars') ?></h5>
-                        <p class="card-text">Add &amp; List</p>
+                        <h5 class="card-title">
+                            <i class="bi bi-person-circle me-1"></i>
+                            <?= __('Avatars') ?>
+                        </h5>
+                        <p class="card-text text-muted">
+                            <?= __('Review the user avatar images.') ?>
+                        </p>
+                        <button type="button" class="btn btn-outline-default btn-sm" onclick="window.location='/admin/avatars'">
+                            <?= __('View All') ?>
+                            <i class="bi bi-forward-fill ms-1"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -91,8 +110,21 @@
                         <?= __('User Media') ?>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title"><?= __('User Images') ?></h5>
-                        <p class="card-text">Add &amp; List</p>
+                        <h5 class="card-title">
+                            <i class="bi bi-card-image me-1"></i>
+                            <?= __('Images') ?>
+                        </h5>
+                        <p class="card-text text-muted">
+                            <?= __('Review all user-uploaded images.') ?>
+                        </p>
+                        <button type="button" class="btn btn-outline-default btn-sm" onclick="window.location='/admin/images'">
+                            <?= __('View All') ?>
+                            <i class="bi bi-forward-fill ms-1"></i>
+                        </button>
+                        <button type="button" class="btn btn-outline-default btn-sm" onclick="window.location='/admin/addimage'">
+                            <?= __('Add New') ?>
+                            <i class="bi bi-plus-lg ms-1"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -103,8 +135,21 @@
                         <?= __('User Media') ?>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title"><?= __('User Sounds') ?></h5>
-                        <p class="card-text">Add &amp; List</p>
+                        <h5 class="card-title">
+                            <i class="bi bi-soundwave me-1"></i>
+                            <?= __('Sounds') ?>
+                        </h5>
+                        <p class="card-text text-muted">
+                            <?= __('Review all user-uploaded sounds.') ?>
+                        </p>
+                        <button type="button" class="btn btn-outline-default btn-sm" onclick="window.location='/admin/sounds'">
+                            <?= __('View All') ?>
+                            <i class="bi bi-forward-fill ms-1"></i>
+                        </button>
+                        <button type="button" class="btn btn-outline-default btn-sm" onclick="window.location='/admin/addsound'">
+                            <?= __('Add New') ?>
+                            <i class="bi bi-plus-lg ms-1"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -115,8 +160,17 @@
                         <?= __('User Data') ?>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title"><?= __('User Session Data') ?></h5>
-                        <p class="card-text">Add &amp; List</p>
+                        <h5 class="card-title">
+                            <i class="bi bi-gear me-1"></i>
+                            <?= __('Sessions') ?>
+                        </h5>
+                        <p class="card-text text-muted">
+                            <?= __('Review all available session data.') ?>
+                        </p>
+                        <button type="button" class="btn btn-outline-default btn-sm" onclick="window.location='/admin/sessions'">
+                            <?= __('View All') ?>
+                            <i class="bi bi-forward-fill ms-1"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -127,8 +181,21 @@
                         <?= __('User Data') ?>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title"><?= __('Application Users') ?></h5>
-                        <p class="card-text">Add &amp; List</p>
+                        <h5 class="card-title">
+                            <i class="bi bi-person me-1"></i>
+                            <?= __('Users') ?>
+                        </h5>
+                        <p class="card-text text-muted">
+                            <?= __('Review all application users\' data.') ?>
+                        </p>
+                        <button type="button" class="btn btn-outline-default btn-sm" onclick="window.location='/admin/sounds'">
+                            <?= __('View All') ?>
+                            <i class="bi bi-forward-fill ms-1"></i>
+                        </button>
+                        <button type="button" class="btn btn-outline-default btn-sm" onclick="window.location='/admin/addsound'">
+                            <?= __('Add New') ?>
+                            <i class="bi bi-plus-lg ms-1"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -139,8 +206,21 @@
                         <?= __('Reference Data') ?>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title"><?= __('Mobile Carriers') ?></h5>
-                        <p class="card-text">Add &amp; List</p>
+                        <h5 class="card-title">
+                            <i class="bi bi-phone-vibrate me-1"></i>
+                            <?= __('Carriers') ?>
+                        </h5>
+                        <p class="card-text text-muted">
+                            <?= __('Review all wireless service carriers.') ?>
+                        </p>
+                        <button type="button" class="btn btn-outline-default btn-sm" onclick="window.location='/admin/sounds'">
+                            <?= __('View All') ?>
+                            <i class="bi bi-forward-fill ms-1"></i>
+                        </button>
+                        <button type="button" class="btn btn-outline-default btn-sm" onclick="window.location='/admin/addsound'">
+                            <?= __('Add New') ?>
+                            <i class="bi bi-plus-lg ms-1"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -151,8 +231,21 @@
                         <?= __('Reference Data') ?>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title"><?= __('Countries') ?></h5>
-                        <p class="card-text">Add &amp; List</p>
+                        <h5 class="card-title">
+                            <i class="bi bi-globe me-1"></i>
+                            <?= __('Countries') ?>
+                        </h5>
+                        <p class="card-text text-muted">
+                            <?= __('Review all countries.') ?>
+                        </p>
+                        <button type="button" class="btn btn-outline-default btn-sm" onclick="window.location='/admin/countries'">
+                            <?= __('View All') ?>
+                            <i class="bi bi-forward-fill ms-1"></i>
+                        </button>
+                        <button type="button" class="btn btn-outline-default btn-sm" onclick="window.location='/admin/addcountry'">
+                            <?= __('Add New') ?>
+                            <i class="bi bi-plus-lg ms-1"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -163,8 +256,21 @@
                         <?= __('Reference Data') ?>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title"><?= __('States of the US') ?></h5>
-                        <p class="card-text">Add &amp; List</p>
+                        <h5 class="card-title">
+                            <i class="bi bi-globe me-1"></i>
+                            <?= __('States') ?>
+                        </h5>
+                        <p class="card-text text-muted">
+                            <?= __('Review all US states.') ?>
+                        </p>
+                        <button type="button" class="btn btn-outline-default btn-sm" onclick="window.location='/admin/states'">
+                            <?= __('View All') ?>
+                            <i class="bi bi-forward-fill ms-1"></i>
+                        </button>
+                        <button type="button" class="btn btn-outline-default btn-sm" onclick="window.location='/admin/addstate'">
+                            <?= __('Add New') ?>
+                            <i class="bi bi-plus-lg ms-1"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -175,8 +281,21 @@
                         <?= __('Reference Data') ?>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title"><?= __('Timezones') ?></h5>
-                        <p class="card-text">Add &amp; List</p>
+                        <h5 class="card-title">
+                            <i class="bi bi-clock me-1"></i>
+                            <?= __('Timezones') ?>
+                        </h5>
+                        <p class="card-text text-muted">
+                            <?= __('Review all time zones.') ?>
+                        </p>
+                        <button type="button" class="btn btn-outline-default btn-sm" onclick="window.location='/admin/zones'">
+                            <?= __('View All') ?>
+                            <i class="bi bi-forward-fill ms-1"></i>
+                        </button>
+                        <button type="button" class="btn btn-outline-default btn-sm" onclick="window.location='/admin/addzone'">
+                            <?= __('Add New') ?>
+                            <i class="bi bi-plus-lg ms-1"></i>
+                        </button>
                     </div>
                 </div>
             </div>
