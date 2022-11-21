@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Form\AdminResourcesAddForm;
+
 /**
  * Admin Controller
  */
@@ -313,18 +315,24 @@ class AdminController extends AppController
         }
 
         $ResourcesTable = $this->fetchTable("Resources");
-        $this->paginate = [
-            'maxLimit' => 512,
-            'limit'    => 32,
-        ];
+        $this->paginate = [ 'maxLimit' => 512, 'limit' => 32 ];
         $resources = $this->paginate($ResourcesTable);
+        $form = new AdminResourcesAddForm();
 
         if ($this->request->is(['patch', 'post', 'put'])) 
         {
-            
+            if ($form->execute($this->request->getData()))
+            {
+                $this->Flash->success(__('The resource was added.'));               
+                return $this->redirect($this->referer());
+            } 
+            else 
+            {
+                $this->Flash->error(__('An error occurred. Check the form for more details.'));
+            }
         } 
 
-        $this->set(compact('resources'));
+        $this->set(compact('form', 'resources'));
     }
 
     /**

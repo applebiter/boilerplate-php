@@ -56,3 +56,4 @@ app_local.php
 .env
 tmp/*
 storage/*
+plugins/*

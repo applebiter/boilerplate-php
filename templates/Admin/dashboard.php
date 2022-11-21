@@ -1,6 +1,6 @@
 <div class="row gx-5 align-items-center justify-content-center">
 
-    <div class="col-lg-7">
+    <div class="col-xl-5">
         <h2>
             <i class="bi bi-speedometer2 me-2"></i>
             <?= __('Admin Dashboard') ?>
@@ -12,14 +12,14 @@
 
         <div class="row gx-3 mt-4">
 
-            <div class="col-md-6 col-xl-4">
-                <div class="card border-secondary mb-3">
+            <div class="col-md-6">
+                <div class="card mb-3 border-danger">
                     <div class="card-header text-danger">
                         <?= __('Authorization') ?>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">
-                            <i class="bi bi-map me-1"></i>
+                            <i class="bi bi-pin-map-fill me-1"></i>
                             <?= __('Endpoints') ?>
                         </h5>
                         <p class="card-text text-muted">
@@ -29,16 +29,12 @@
                             <?= __('View All') ?>
                             <i class="bi bi-forward-fill ms-1"></i>
                         </button>
-                        <button type="button" class="btn btn-outline-default btn-sm" onclick="window.location='/admin/addresource'">
-                            <?= __('Add New') ?>
-                            <i class="bi bi-plus-lg ms-1"></i>
-                        </button>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6 col-xl-4">
-                <div class="card border-secondary mb-3">
+            <div class="col-md-6">
+                <div class="card mb-3 border-danger">
                     <div class="card-header text-danger">
                         <?= __('Authorization') ?>
                     </div>
@@ -58,8 +54,8 @@
                 </div>
             </div>
 
-            <div class="col-md-6 col-xl-4">
-                <div class="card border-secondary mb-3">
+            <div class="col-md-6">
+                <div class="card mb-3 border-danger">
                     <div class="card-header text-danger">
                         <?= __('Authorization') ?>
                     </div>
@@ -75,16 +71,12 @@
                             <?= __('View All') ?>
                             <i class="bi bi-forward-fill ms-1"></i>
                         </button>
-                        <button type="button" class="btn btn-outline-default btn-sm" onclick="window.location='/admin/addrole'">
-                            <?= __('Add New') ?>
-                            <i class="bi bi-plus-lg ms-1"></i>
-                        </button>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6 col-xl-4">
-                <div class="card border-secondary mb-3">
+            <div class="col-md-6">
+                <div class="card mb-3 border-success">
                     <div class="card-header text-success">
                         <?= __('User Media') ?>
                     </div>
@@ -104,8 +96,8 @@
                 </div>
             </div>
 
-            <div class="col-md-6 col-xl-4">
-                <div class="card border-secondary mb-3">
+            <div class="col-md-6">
+                <div class="card mb-3 border-success">
                     <div class="card-header text-success">
                         <?= __('User Media') ?>
                     </div>
@@ -121,16 +113,12 @@
                             <?= __('View All') ?>
                             <i class="bi bi-forward-fill ms-1"></i>
                         </button>
-                        <button type="button" class="btn btn-outline-default btn-sm" onclick="window.location='/admin/addimage'">
-                            <?= __('Add New') ?>
-                            <i class="bi bi-plus-lg ms-1"></i>
-                        </button>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6 col-xl-4">
-                <div class="card border-secondary mb-3">
+            <div class="col-md-6">
+                <div class="card mb-3 border-success">
                     <div class="card-header text-success">
                         <?= __('User Media') ?>
                     </div>
@@ -146,16 +134,12 @@
                             <?= __('View All') ?>
                             <i class="bi bi-forward-fill ms-1"></i>
                         </button>
-                        <button type="button" class="btn btn-outline-default btn-sm" onclick="window.location='/admin/addsound'">
-                            <?= __('Add New') ?>
-                            <i class="bi bi-plus-lg ms-1"></i>
-                        </button>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6 col-xl-4">
-                <div class="card border-secondary mb-3">
+            <div class="col-md-6">
+                <div class="card mb-3 border-warning">
                     <div class="card-header text-warning">
                         <?= __('User Data') ?>
                     </div>
@@ -175,8 +159,8 @@
                 </div>
             </div>
 
-            <div class="col-md-6 col-xl-4">
-                <div class="card border-secondary mb-3">
+            <div class="col-md-6">
+                <div class="card mb-3 border-warning">
                     <div class="card-header text-warning">
                         <?= __('User Data') ?>
                     </div>
@@ -192,16 +176,12 @@
                             <?= __('View All') ?>
                             <i class="bi bi-forward-fill ms-1"></i>
                         </button>
-                        <button type="button" class="btn btn-outline-default btn-sm" onclick="window.location='/admin/addsound'">
-                            <?= __('Add New') ?>
-                            <i class="bi bi-plus-lg ms-1"></i>
-                        </button>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6 col-xl-4">
-                <div class="card border-secondary mb-3">
+            <div class="col-md-6">
+                <div class="card mb-3 border-info">
                     <div class="card-header text-info">
                         <?= __('Reference Data') ?>
                     </div>
@@ -217,16 +197,12 @@
                             <?= __('View All') ?>
                             <i class="bi bi-forward-fill ms-1"></i>
                         </button>
-                        <button type="button" class="btn btn-outline-default btn-sm" onclick="window.location='/admin/addsound'">
-                            <?= __('Add New') ?>
-                            <i class="bi bi-plus-lg ms-1"></i>
-                        </button>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6 col-xl-4">
-                <div class="card border-secondary mb-3">
+            <div class="col-md-6">
+                <div class="card mb-3 border-info">
                     <div class="card-header text-info">
                         <?= __('Reference Data') ?>
                     </div>
@@ -242,16 +218,12 @@
                             <?= __('View All') ?>
                             <i class="bi bi-forward-fill ms-1"></i>
                         </button>
-                        <button type="button" class="btn btn-outline-default btn-sm" onclick="window.location='/admin/addcountry'">
-                            <?= __('Add New') ?>
-                            <i class="bi bi-plus-lg ms-1"></i>
-                        </button>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6 col-xl-4">
-                <div class="card border-secondary mb-3">
+            <div class="col-md-6">
+                <div class="card mb-3 border-info">
                     <div class="card-header text-info">
                         <?= __('Reference Data') ?>
                     </div>
@@ -267,16 +239,12 @@
                             <?= __('View All') ?>
                             <i class="bi bi-forward-fill ms-1"></i>
                         </button>
-                        <button type="button" class="btn btn-outline-default btn-sm" onclick="window.location='/admin/addstate'">
-                            <?= __('Add New') ?>
-                            <i class="bi bi-plus-lg ms-1"></i>
-                        </button>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6 col-xl-4">
-                <div class="card border-secondary mb-3">
+            <div class="col-md-6">
+                <div class="card mb-3 border-info">
                     <div class="card-header text-info">
                         <?= __('Reference Data') ?>
                     </div>
@@ -292,17 +260,13 @@
                             <?= __('View All') ?>
                             <i class="bi bi-forward-fill ms-1"></i>
                         </button>
-                        <button type="button" class="btn btn-outline-default btn-sm" onclick="window.location='/admin/addzone'">
-                            <?= __('Add New') ?>
-                            <i class="bi bi-plus-lg ms-1"></i>
-                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-lg-5">
+    <div class="col-xl-7">
         
         
 

@@ -35,7 +35,7 @@ if ($authUser && $authUser->profile->avatar)
     <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
       <div class="container">
         <a href="/" class="navbar-brand">
-          <i class="bi bi-app"></i>
+          <i class="bi bi-slash-square"></i>
           applebiter.com
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,31 +47,33 @@ if ($authUser && $authUser->profile->avatar)
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="account"
                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <?php if ($avatarId) : ?>
-                <div style="background-image:url('/images/thumbnail/<?= $avatarId ?>/30x30');background-repeat:no-repeat;background-position:50%;border-radius:50%;width:24px;height:24px;" class="me-2"></div>
-                <?php endif ?>
+                <i class="bi bi-person-circle me-2"></i>
                 <?= __('Account') ?>
               </a>
               <div class="dropdown-menu" aria-labelledby="account">
                 <a class="dropdown-item" href="/account/home">
                   <i class="bi bi-house-fill me-2"></i>
-                  <?= __('Account Home') ?>
+                  <?= __('Home') ?>
                 </a>
                 <a class="dropdown-item" href="/account/changepwd">
                   <i class="bi bi-key-fill me-2"></i>
-                  <?= __('Change Your Password') ?>
+                  <?= __('Password') ?>
                 </a>
                 <a class="dropdown-item" href="/account/preferences">
                   <i class="bi bi-sliders me-2"></i>
-                  <?= __('Account Preferences') ?>
+                  <?= __('Preferences') ?>
                 </a>
                 <a class="dropdown-item" href="/account/profile">
                   <i class="bi bi-person-fill me-2"></i>
-                  <?= __('Manage Your Profile') ?>
+                  <?= __('Profile') ?>
                 </a>
-                <a class="dropdown-item" href="/account/devices">
-                  <i class="bi bi-phone-vibrate me-2"></i>
-                  <?= __('Mobile Devices') ?>
+                <a class="dropdown-item" href="/account/images">
+                  <i class="bi bi-card-image me-2"></i>
+                  <?= __('Images') ?>
+                </a>
+                <a class="dropdown-item" href="/account/sounds">
+                  <i class="bi bi-soundwave me-2"></i>
+                  <?= __('Sounds') ?>
                 </a>
                 <a class="dropdown-item" href="/account/logout">
                   <i class="bi bi-door-open-fill me-2"></i>
@@ -85,13 +87,13 @@ if ($authUser && $authUser->profile->avatar)
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="admin"
                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="bi bi-sliders me-2"></i>
-                <?= __('Administration') ?>
+                <i class="bi bi-tools me-2"></i>
+                <?= __('Admin') ?>
               </a>
               <div class="dropdown-menu" aria-labelledby="account">
                 <a class="dropdown-item" href="/admin">
                   <i class="bi bi-speedometer2 me-2"></i>
-                  <?= __('Admin Dashboard') ?>
+                  <?= __('Dashboard') ?>
                 </a>
               </div>
             </li>

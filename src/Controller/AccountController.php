@@ -203,6 +203,63 @@ class AccountController extends AppController
     }
 
     /**
+     * image method
+     *
+     * @param string|null $id Image id.
+     * @return \Cake\Http\Response|null|void Renders view
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function image($id = null)
+    {
+        $session = $this->request->getSession();
+        
+        if (!$session->check('Auth.User'))
+        {
+            return $this->redirect(['controller' => 'Account', 'action' => 'login']);
+        }
+        
+        $ImagesTable = $this->fetchTable("Images");
+        $image = $this->Images->get($id, ['contain' => ['Users']]);
+
+        if ($this->request->is(['patch', 'post', 'put'])) 
+        {
+            
+        }
+
+        $this->set(compact('image'));
+    }
+
+    /**
+     * images method
+     *
+     * @return \Cake\Http\Response|null|void Renders view
+     */
+    public function images()
+    {
+        $session = $this->request->getSession();
+        
+        if (!$session->check('Auth.User'))
+        {
+            return $this->redirect(['controller' => 'Account', 'action' => 'login']);
+        }
+        
+        $ImagesTable = $this->fetchTable("Images");
+        $this->paginate = [
+            'maxLimit' => 512,
+            'limit'    => 32,
+            'contain'  => [ 'Users' ],
+        ];
+        $images = $this->paginate($ImagesTable);
+
+        if ($this->request->is(['patch', 'post', 'put'])) 
+        {
+            
+        } 
+
+        $this->set(compact('images'));
+    }
+
+    /**
      * login
      * 
      * Login form for registered users
@@ -454,5 +511,61 @@ class AccountController extends AppController
         }
 
         $this->set('form', $form);
+    }
+
+    /**
+     * sound method
+     *
+     * @param string|null $id Sound id.
+     * @return \Cake\Http\Response|null|void Renders view
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function sound($id = null)
+    {
+        $session = $this->request->getSession();
+        
+        if (!$session->check('Auth.User'))
+        {
+            return $this->redirect(['controller' => 'Account', 'action' => 'login']);
+        }
+        
+        $SoundsTable = $this->fetchTable("Sounds");
+        $sound = $SoundsTable->get($id, ['contain' => []]);
+
+        if ($this->request->is(['patch', 'post', 'put'])) 
+        {
+            
+        }
+
+        $this->set(compact('sound'));
+    }
+
+    /**
+     * sounds method
+     *
+     * @return \Cake\Http\Response|null|void Renders view
+     */
+    public function sounds()
+    {
+        $session = $this->request->getSession();
+        
+        if (!$session->check('Auth.User'))
+        {
+            return $this->redirect(['controller' => 'Account', 'action' => 'login']);
+        }
+
+        $SoundsTable = $this->fetchTable("Sounds");
+        $this->paginate = [
+            'maxLimit' => 512,
+            'limit'    => 32,
+        ];
+        $sounds = $this->paginate($SoundsTable);
+
+        if ($this->request->is(['patch', 'post', 'put'])) 
+        {
+            
+        } 
+
+        $this->set(compact('sounds'));
     }
 }
