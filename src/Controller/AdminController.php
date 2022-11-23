@@ -290,14 +290,36 @@ class AdminController extends AppController
         }
         
         $ResourcesTable = $this->fetchTable("Resources");
-        $resource = $ResourcesTable->get($id, ['contain' => []]);
+        $resource = $id ? $ResourcesTable->find()->where(['id' => $id])->first() : null;
+        $form = new AdminResourcesAddForm();
 
-        if ($this->request->is(['patch', 'post', 'put'])) 
+        if ($this->request->is(['post']) && !$id) 
         {
-            
+            if ($form->execute($this->request->getData()))
+            {
+                $this->Flash->success(__('The resource was added.'));               
+                return $this->redirect($this->referer());
+            } 
+            else 
+            {
+                $this->Flash->error(__('An error occurred. Check the form for more details.'));
+            }
+        }
+        elseif ($this->request->is(['delete']) && $id && $resource) 
+        {
+            if ($ResourcesTable->delete($resource)) 
+            {
+                $this->Flash->success(__('The resource has been deleted.'));
+            } 
+            else 
+            {
+                $this->Flash->error(__('The resource could not be deleted. Please, try again.'));
+            }
+    
+            return $this->redirect($this->referer());
         }
 
-        $this->set(compact('resource'));
+        $this->set(compact('resource', 'form'));
     }
 
     /**
@@ -318,19 +340,6 @@ class AdminController extends AppController
         $this->paginate = [ 'maxLimit' => 512, 'limit' => 32 ];
         $resources = $this->paginate($ResourcesTable);
         $form = new AdminResourcesAddForm();
-
-        if ($this->request->is(['patch', 'post', 'put'])) 
-        {
-            if ($form->execute($this->request->getData()))
-            {
-                $this->Flash->success(__('The resource was added.'));               
-                return $this->redirect($this->referer());
-            } 
-            else 
-            {
-                $this->Flash->error(__('An error occurred. Check the form for more details.'));
-            }
-        } 
 
         $this->set(compact('form', 'resources'));
     }

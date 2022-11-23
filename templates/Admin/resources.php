@@ -31,7 +31,7 @@
                                 <a href="/admin/permissions/<?= h($resource->id) ?>" title="Click here to manage permissions for this resource">
                                     <i class="bi bi-file-lock2 me-1"></i></a> &nbsp; 
                                 <?= $this->Form->postLink(__('<i class="bi bi-trash-fill me-1" title="Click here to delete this resource"></i>'), [
-                                        'action' => '/admin/resource', 
+                                        'action' => '/resource', 
                                         $resource->id
                                     ],[
                                         'method' => 'delete',
@@ -51,7 +51,7 @@
                 <?= $this->Form->create($form, [
                     'autocomplete' => 'off',
                     'class' => 'g-3 mt-4',
-                    'url' => '/admin/resources'
+                    'url' => '/admin/resource'
                 ]) ?>
                     <input autocomplete="false" name="hidden" type="text" style="display:none;">
 
