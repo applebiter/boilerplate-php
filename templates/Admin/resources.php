@@ -82,6 +82,56 @@
                             </select>
                         </div>
 
+                        <table class="table table-hover mt-4">
+                            <thead>
+                                <tr>
+                                    <th scope="col"><?= __('Role') ?></th>
+                                    <th scope="col"><?= __('Create') ?></th>
+                                    <th scope="col"><?= __('Read') ?></th>
+                                    <th scope="col"><?= __('Update') ?></th>
+                                    <th scope="col"><?= __('Delete') ?></th>
+                                    <th scope="col"><?= __('Execute') ?></th>
+                                </tr>
+                            </thead>    
+                            <tbody>
+                                <?php foreach ($roles as $role) : ?>
+                                <tr class="table-active">
+                                    <td><?= h($role->name) ?></td>
+                                    <td class="form-group">
+                                        <select class="form-select form-select-sm" id="create_<?= h($role->id) ?>" name="permissions[<?= h($role->id) ?>]['create']">
+                                            <option value="0"><?= __('False') ?></option>
+                                            <option value="1"><?= __('True') ?></option>
+                                        </select>
+                                    </td>
+                                    <td class="form-group">
+                                        <select class="form-select form-select-sm" id="read_<?= h($role->id) ?>" name="permissions[<?= h($role->id) ?>]['read']">
+                                            <option value="0"><?= __('False') ?></option>
+                                            <option value="1"><?= __('True') ?></option>
+                                        </select>
+                                    </td>
+                                    <td class="form-group">
+                                        <select class="form-select form-select-sm" id="update_<?= h($role->id) ?>" name="permissions[<?= h($role->id) ?>]['update']">
+                                            <option value="0"><?= __('False') ?></option>
+                                            <option value="1"><?= __('True') ?></option>
+                                        </select>
+                                    </td>
+                                    <td class="form-group">
+                                        <select class="form-select form-select-sm" id="delete_<?= h($role->id) ?>" name="permissions[<?= h($role->id) ?>]['delete']">
+                                            <option value="0"><?= __('False') ?></option>
+                                            <option value="1"><?= __('True') ?></option>
+                                        </select>
+                                    </td>
+                                    <td class="form-group">
+                                        <select class="form-select form-select-sm" id="execute_<?= h($role->id) ?>" name="permissions[<?= h($role->id) ?>]['execute']">
+                                            <option value="0"><?= __('False') ?></option>
+                                            <option value="1"><?= __('True') ?></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <?php endforeach ?>
+                            </tbody>
+                        </table>
+
                         <div class="text-end">
                             <button type="submit" class="btn btn-primary mt-4" onclick="this.form.submit()">
                                 <?= __('Add Endpoint') ?> 

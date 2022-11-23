@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Form\AdminResourcesAddForm;
+use App\Form\AdminRolesAddForm;
 
 /**
  * Admin Controller
@@ -337,11 +338,13 @@ class AdminController extends AppController
         }
 
         $ResourcesTable = $this->fetchTable("Resources");
+        $RolesTable = $this->fetchTable("Roles");
+        $roles = $RolesTable->find();
         $this->paginate = [ 'maxLimit' => 512, 'limit' => 32 ];
         $resources = $this->paginate($ResourcesTable);
         $form = new AdminResourcesAddForm();
 
-        $this->set(compact('form', 'resources'));
+        $this->set(compact('form', 'resources', 'roles'));
     }
 
     /**
@@ -361,14 +364,36 @@ class AdminController extends AppController
         }
         
         $RolesTable = $this->fetchTable("Roles");
-        $role = $RolesTable->get($id, ['contain' => []]);
+        $role = $id ? $RolesTable->find()->where(['id' => $id])->first() : null;
+        $form = new AdminRolesAddForm();
 
-        if ($this->request->is(['patch', 'post', 'put'])) 
+        if ($this->request->is(['post']) && !$id) 
         {
-            
+            if ($form->execute($this->request->getData()))
+            {
+                $this->Flash->success(__('The role was added.'));               
+                return $this->redirect($this->referer());
+            } 
+            else 
+            {
+                $this->Flash->error(__('An error occurred. Check the form for more details.'));
+            }
+        }
+        elseif ($this->request->is(['delete']) && $id && $role) 
+        {
+            if ($RolesTable->delete($role)) 
+            {
+                $this->Flash->success(__('The role has been deleted.'));
+            } 
+            else 
+            {
+                $this->Flash->error(__('The role could not be deleted. Please, try again.'));
+            }
+    
+            return $this->redirect($this->referer());
         }
 
-        $this->set(compact('role'));
+        $this->set(compact('role', 'form'));
     }
 
     /**
@@ -386,18 +411,11 @@ class AdminController extends AppController
         }
 
         $RolesTable = $this->fetchTable("Roles");
-        $this->paginate = [
-            'maxLimit' => 512,
-            'limit'    => 32,
-        ];
+        $this->paginate = ['maxLimit' => 512, 'limit' => 32];
         $roles = $this->paginate($RolesTable);
+        $form = new AdminRolesAddForm();
 
-        if ($this->request->is(['patch', 'post', 'put'])) 
-        {
-            
-        } 
-
-        $this->set(compact('roles'));
+        $this->set(compact('form', 'roles'));
     }
 
     /**
